@@ -75,8 +75,6 @@ WSGI_APPLICATION = 'azs_dt.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-"""Можно (точнее нужно) сделать user и password через os.getenv, 
-но так как это тестовый проект я не стал этого делать"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
