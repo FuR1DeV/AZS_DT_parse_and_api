@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+"""Добавляем url api из приложения dt"""
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dt.urls')),

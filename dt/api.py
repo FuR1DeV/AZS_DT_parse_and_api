@@ -4,6 +4,8 @@ from .serializers import AzsSerializer
 
 
 class AzsViewSet(viewsets.ModelViewSet):
+    """Queryset это наши объекты в базе данных
+    и указываем класс сериалайзера"""
     queryset = Azs.objects.all()
     permission_classes = [
         permissions.AllowAny

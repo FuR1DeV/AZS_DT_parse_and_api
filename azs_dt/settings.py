@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+
+"""В установленных приложениях добавляем приложение dt и rest_framework"""
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

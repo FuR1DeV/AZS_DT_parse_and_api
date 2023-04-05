@@ -4,7 +4,7 @@ from config import HOST, POSTGRESQL_USER, POSTGRESQL_PASSWORD, DATABASE
 
 
 class Database:
-
+    """Инициализируем Базу данных"""
     def __init__(self):
         self.connection = psycopg2.connect(host=HOST,
                                            user=POSTGRESQL_USER,
@@ -14,8 +14,8 @@ class Database:
 
 
 class UpdateDB(Database):
-
     def update(self, latitude, longitude, dt, dt_taneko, dt_winter, dt_arctic):
+        """Функция обновления таблицы"""
         with self.connection.cursor() as cursor:
             cursor.execute(
                 "INSERT INTO dt_azs (latitude, longitude, dt, dt_taneko, dt_winter, dt_arctic) "
@@ -31,6 +31,7 @@ class UpdateDB(Database):
             self.connection.commit()
 
     def delete(self):
+        """Функция очищения таблицы"""
         with self.connection.cursor() as cursor:
             cursor.execute(
                 "TRUNCATE dt_azs;"
