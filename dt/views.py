@@ -31,7 +31,7 @@ class ParserViewSet(viewsets.ModelViewSet):
             for index in range(len(urls)):
                 requests.get(url=urls[index])
                 time.sleep(randint(5, 11))
-                print(f"click... {index + 1}")
+                print(f"click... {index + 1} тыкнули сюда {urls[index]}")
             """Скачиваем нужный файл"""
             get_xml_list = requests.get(url="https://rss.tatneft.ru/outer/azs/get_xml_list").content
             print("Файл успешно скачен!")
