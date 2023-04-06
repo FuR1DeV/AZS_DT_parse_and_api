@@ -13,6 +13,8 @@ Postgresql
 ## Docker
 
 С помощью Docker вы сможете легко установить это приложение
+У вас должен быть установлен Docker
+Перейдите в скаченную репозиторий и введите команду
 
 ```sh
 docker-compose -f docker-compose.yml up
