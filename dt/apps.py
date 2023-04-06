@@ -1,5 +1,4 @@
 from django.apps import AppConfig
-from .scheduler import updater
 
 
 class DtConfig(AppConfig):
@@ -7,5 +6,6 @@ class DtConfig(AppConfig):
     name = 'dt'
 
     def ready(self):
+        from .scheduler import updater
         print("Обновление данных через 30 дней...")
         updater.scheduler_start()

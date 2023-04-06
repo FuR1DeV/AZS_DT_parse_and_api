@@ -11,7 +11,7 @@ def scheduler_start():
     parser = ParserViewSet()
     scheduler.add_job(parser.main_parser,
                       "interval",
-                      minutes=43200,
+                      minutes=1,  # Чтобы было удобно проверять поставил 1 минуту
                       id=f"parser_{datetime.now().month}",
                       replace_existing=True)
     scheduler.start()

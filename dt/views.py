@@ -7,7 +7,8 @@ from openpyxl import load_workbook
 from xls2xlsx import XLS2XLSX
 from rest_framework import viewsets
 
-from database import db
+from .models import Azs
+from .serializers import AzsSerializer
 
 
 class ParserViewSet(viewsets.ModelViewSet):
@@ -43,17 +44,21 @@ class ParserViewSet(viewsets.ModelViewSet):
             """Открываем новый файл xlsx"""
             book = load_workbook(filename=f"dt/xls_files/azs_monthly_prices_{datetime.now().month}.xlsx")
             sheet = book["Лист1"]
-            """Перед тем как обновить таблицу БД,
-            старые записи в таблице удаляем"""
-            db.update_obj.delete()
+            """Очистим таблицу со старыми данными"""
+            Azs.objects.all().delete()
             print("Обновляем Базы Данных")
+            """Проходимся по циклу и записываем данные"""
             for row in range(2, sheet.max_row + 1):
-                db.update_obj.update(latitude=sheet["E" + str(row)].value,
-                                     longitude=sheet["F" + str(row)].value,
-                                     dt=sheet["M" + str(row)].value,
-                                     dt_taneko=sheet["N" + str(row)].value,
-                                     dt_winter=sheet["V" + str(row)].value,
-                                     dt_arctic=sheet["X" + str(row)].value)
+                azs_serializer = AzsSerializer(data={
+                    "latitude": sheet["E" + str(row)].value,
+                    "longitude": sheet["F" + str(row)].value,
+                    "dt": sheet["M" + str(row)].value,
+                    "dt_taneko": sheet["N" + str(row)].value,
+                    "dt_winter": sheet["V" + str(row)].value,
+                    "dt_arctic": sheet["X" + str(row)].value,
+                })
+                if azs_serializer.is_valid():
+                    azs_serializer.save()
         else:
             with open('error.txt', 'w') as f:
                 f.write(response.content.decode("utf-8"))
